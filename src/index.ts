@@ -12,7 +12,23 @@ async function start() {
 
         await mongo.connect();
 
-        app.db = 
+        app.db = mongo.db();
+
+        // body parser
+
+        app.use(body.json({
+            limit: '500kb'
+        }));
+
+        // Routes
+
+        app.use('/customers', require('./routes/customers'));
+
+        // Start server
+
+        app.listen(3000, ()=> {
+            console.log('Server listening on port 3000');
+        });
 
     } catch (error) {
         console.log(error);
