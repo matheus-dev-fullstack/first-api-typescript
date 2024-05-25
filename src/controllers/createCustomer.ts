@@ -37,7 +37,11 @@ export async function createCustomerController(req: any, res: any) {
 
         console.log(result);
 
-        res.status(200).json({ message: 'Customer created' });
+        if (result.acknowledged) {
+            res.status(200).json({ message: 'Customer created' });
+        } else {
+            throw new Error('Customer not created');
+        }
 
     }
     catch(error) {
