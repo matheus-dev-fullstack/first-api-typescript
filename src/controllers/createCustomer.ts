@@ -11,11 +11,11 @@ export async function createCustomerController(req: any, res: any) {
         if (!email) {
             return res.status(400).json({ message: 'Email is required' });
         }
-        if (phone && phone.length < 10) {
-            return res.status(400).json({ message: 'Phone number must be at least 10 digits' });
+        if (phone && phone.length > 10) {
+            return res.status(400).json({ message: 'Phone number cannot be longer than 10 digits' });
         }
-        if (address && address.length < 100) {
-            return res.status(400).json({ message: 'Address must be at least 100 characters' });
+        if (address && address.length > 100) {
+            return res.status(400).json({ message: 'Address cannot be longer than 100 characters' });
         }
 
         // check if customer exists
@@ -37,7 +37,7 @@ export async function createCustomerController(req: any, res: any) {
 
         console.log(result);
 
-        req.status(200).json({ message: 'Customer created' });
+        res.status(200).json({ message: 'Customer created' });
 
     }
     catch(error) {
